@@ -1,7 +1,9 @@
 package view;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.events.ShellListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -35,7 +37,7 @@ public class MazeWindow extends BasicWindow{
     protected MenuItem aboutMenuItem;
     protected MenuItem exitMenuItem;
     
-    protected MazeDisplay mazeD;
+    protected Maze2D mazeDisplay;
 	protected Maze3d maze;
 
     /**
@@ -62,8 +64,8 @@ public class MazeWindow extends BasicWindow{
 		generateMazeButton.setText("Genenrate Maze");
 		generateMazeButton.setLayoutData(new GridData(SWT.FILL,SWT.NONE,false,false,1,1));
 		
-		mazeD=new Maze2dDisplay(shell,SWT.BORDER);
-		mazeD.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 4));
+		mazeDisplay=new Maze2D(shell,SWT.BORDER);
+		mazeDisplay.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 4));
 		
 		solutionButton=(new Button(shell, SWT.PUSH));
 		solutionButton.setText("Solution");
@@ -122,14 +124,20 @@ public class MazeWindow extends BasicWindow{
     	shell.setMenuBar(menuBar);
     }
     
-   /**
-    * generateMazeSelectionListener- listener to generate maze
-    * @param listener
-    */
+  public void generateKeyListener(KeyAdapter listener)
+  {
+	  mazeDisplay.addKeyListener(listener);
+  }
+    
+    
+    /**
+     * generateMazeSelectionListener- listener to generate maze
+     * @param listener
+     */
     public void generateMazeSelectionListener(SelectionListener listener){
     	generateMazeButton.addSelectionListener(listener);
     	newGameMenuItem.addSelectionListener(listener);
-    	mazeD.setMaze(maze);
+		mazeDisplay.setMaze(maze);
 	}
 	
     /**
@@ -211,6 +219,7 @@ public class MazeWindow extends BasicWindow{
 	public void exitSelectionListener(SelectionListener listener){
 		exitMenuItem.addSelectionListener(listener);
 	};
+	
 
 	/**
 	 * close the shell
@@ -218,4 +227,22 @@ public class MazeWindow extends BasicWindow{
 	public void exit(){
 		shell.dispose();
 	}
+
+	public Maze2D getMazeDisplay() {
+		return mazeDisplay;
+	}
+
+	public void setMazeDisplay(Maze2D mazeD) {
+		this.mazeDisplay = mazeD;
+	}
+
+	public Maze3d getMaze() {
+		return maze;
+	}
+
+	public void setMaze(Maze3d maze) {
+		this.maze = maze;
+	}
+	
+	
 }

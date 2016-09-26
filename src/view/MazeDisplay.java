@@ -6,46 +6,69 @@ import org.eclipse.swt.widgets.Composite;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 
-public class MazeDisplay extends Canvas{
-	protected Maze3d maze;
-	protected Position characterPosition;
-	protected boolean solved;
+public abstract class MazeDisplay extends Canvas{
 
-
-	/**
-	 * Instantiate the maze display with the given parent &amp; style
-	 * @param parent Parent of the widget
-	 * @param style Style for the widget
-	 */
+	Maze3d maze;
+	Position characterPosition;
+	
 	public MazeDisplay(Composite parent, int style) {
 		super(parent, style);
 	}
+	
+	/**
+	 * get the maze
+	 * @return Maze3d
+	 */
+	public Maze3d getMaze() {
+		return maze;
+	}
 
 	/**
-	 * Set the maze displayed by this widget
-	 * @param maze The maze to display
+	 * set maze
+	 * @param maze  Maze3d
 	 */
 	public void setMaze(Maze3d maze) {
 		this.maze = maze;
 	}
+	
+	/**
+	 * set the character in  a position
+
+	 */
+	public abstract  void setCharacterPosition(Position position);
 
 	/**
-	 * Set the character position
-	 * @param position Character position
+	 * move character one step up
 	 */
-	public void setCharacterPosition(Position position) {
-		characterPosition = position;
-		redraw();
-	}
-
+	public abstract void moveUp();
 	/**
-	 * Display that the maze was solved successfully
-	 * @param solved Whether or not the maze was solved
+	 * move character one step down
 	 */
-	public void setSolved(boolean solved) {
-		this.solved = solved;
-		redraw();
-	}
-	
-	
+	public abstract  void moveDown();
+	/**
+	 * move character one step left
+	 */
+	public abstract  void moveLeft();
+	/**
+	 * move character one step Right
+	 */
+	public  abstract void moveRight();
+	/**
+	 * move character one step floor up
+	 */
+	public  abstract void movePageUp();
+	/**
+	 * move character one step floor down
+	 */
+	public  abstract void movePageDown();
+	/**
+	 * move character to start position of the maze
+	 */
+	public abstract void moveStart();
+	/**
+	 * move character to new position
+	 * @param p position to move to
+	 */
+	public abstract void move(Position p);
+
 }

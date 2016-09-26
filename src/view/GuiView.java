@@ -4,15 +4,19 @@ import java.io.File;
 import java.util.Observable;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.events.ShellEvent;
+import org.eclipse.swt.events.ShellListener;
 
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 
 public class GuiView extends CommonView{
-	protected Maze3d maze;
+	protected Maze3d myMaze;
 	protected String mazeName;
 	protected MazeWindow mazeWindow;
 	
@@ -28,7 +32,9 @@ public class GuiView extends CommonView{
 				mazeName=win.getName();
 				setChanged();
 				notifyObservers("generate_maze " +mazeName + " "+ win.getFloors()+ " " + win.getCols()+ " "+ win.getRows());
-				mazeWindow.displayInfo("Generate Maze", "the maze was genereated succesfully");
+				setChanged();
+				notifyObservers("display "+mazeName);
+				
 			}
 			
 			@Override
@@ -62,7 +68,7 @@ public class GuiView extends CommonView{
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				Position start= maze.getStartPosition();
+				Position start= myMaze.getStartPosition();
 				// TODO Auto-generated method stub
 				
 			}
@@ -175,6 +181,34 @@ public class GuiView extends CommonView{
 			@Override
 			public void widgetDefaultSelected(SelectionEvent arg0) {}
 		});
+	
+	
+	mazeWindow.generateKeyListener(new KeyAdapter() {
+		 public void keyPressed(KeyEvent e) {
+					switch(e.keyCode) {
+					case SWT.ARROW_LEFT:
+						getMazeWindow().getMazeDisplay().moveLeft();
+						break;
+					case SWT.ARROW_RIGHT:
+						getMazeWindow().getMazeDisplay().moveRight();
+						break;
+					/*case SWT.ARROW_UP:
+						getMazeWindow().getMazeDisplay().moveBackward();
+						break;
+					case SWT.ARROW_DOWN:
+						getMazeWindow().getMazeDisplay().moveForward();
+						break;*/
+					case SWT.PAGE_UP:
+						getMazeWindow().getMazeDisplay().moveUp();
+						break;
+					case SWT.PAGE_DOWN:
+						getMazeWindow().getMazeDisplay().moveDown();
+						break;
+					}
+				
+		 }
+	
+	 });
 	}
 	
 	@Override
@@ -191,10 +225,22 @@ public class GuiView extends CommonView{
 
 	@Override
 	public void displayMaze(Maze3d maze) {
-		// TODO Auto-generated method stub
+		if (maze== null) 
+			mazeWindow.displayError("Error","this maze does not exist");
+		else
+		{	
+			setChanged();
+			notifyObservers("display_cross_section x "+ maze.getStartPosition().getX() + " "+mazeName);
+			//notifyObservers("display_cross_section x "+ mazeWindow.getMazeDisplay().getCharacter().getCurr().getX() + " "+mazeName);
+			//mazeWindow.getMazeDisplay().setMazeData(maze.getCrossSectionByX(maze.getStartPosition().getX()));
+			mazeWindow.getMazeDisplay().setMaze(maze);
+			mazeWindow.displayInfo("Maze", "the maze was created succesfully");
+		}
 		
 	}
 
+	
+	
 	@Override
 	public void start() {
 		mazeWindow.run();
@@ -214,8 +260,7 @@ public class GuiView extends CommonView{
 
 	@Override
 	public void displayCrossSection(int[][] maze2d) {
-		// TODO Auto-generated method stub
-		
+		this.mazeWindow.getMazeDisplay().setMazeData(maze2d);
 	}
 
 	@Override
@@ -226,4 +271,10 @@ public class GuiView extends CommonView{
 		}
 		
 	}
+
+	public MazeWindow getMazeWindow() {
+		return mazeWindow;
+	}
+	
+	
 }

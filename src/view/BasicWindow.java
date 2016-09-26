@@ -5,7 +5,9 @@ import java.util.Observable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
@@ -33,6 +35,15 @@ public abstract class BasicWindow extends Observable implements Runnable {
 		shell=new Shell(display);
 		shell.setSize(width, height);
 		initWidgets();
+		
+//		shell.addListener(SWT.CLOSE	,new Listener() {
+//			@Override 
+//			public void handleEvent(Event event) {
+//				shell.close();
+//		        }
+//		});
+
+			
 	}
 	
 	/**
