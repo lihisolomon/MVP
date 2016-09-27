@@ -29,13 +29,18 @@ public abstract class MazeDisplay extends Canvas{
 	 */
 	public void setMaze(Maze3d maze) {
 		this.maze = maze;
+		if(maze!=null) 
+            characterPosition = new Position(maze.getStartPosition());
 	}
 	
 	/**
-	 * set the character in  a position
-
+	 * set the character in a position
 	 */
 	public abstract  void setCharacterPosition(Position position);
+	
+	public Position getCharacterPosition() {
+		return characterPosition;
+	}
 
 	/**
 	 * move character one step up
@@ -64,7 +69,7 @@ public abstract class MazeDisplay extends Canvas{
 	/**
 	 * move character to start position of the maze
 	 */
-	public abstract void moveStart();
+	public abstract void moveToStart();
 	/**
 	 * move character to new position
 	 * @param p position to move to

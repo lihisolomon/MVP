@@ -149,7 +149,7 @@ public class MyModel extends CommonModel {
 			if(mazes.containsKey(mazeName))
 			{
 				try {
-				OutputStream out = new MyCompressorOutputStream(new FileOutputStream(fileName+".maz"));
+				OutputStream out = new MyCompressorOutputStream(new FileOutputStream(fileName));
 				byte[] arr=mazes.get(mazeName).toByteArray();
 				int counter=arr.length;
 				while(counter>=255)
@@ -189,7 +189,7 @@ public class MyModel extends CommonModel {
 			if(!mazes.containsKey(mazeName))
 			{
 				try {
-					InputStream in=new MyDecompressorInputStream(new FileInputStream(fileName+".maz"));
+					InputStream in=new MyDecompressorInputStream(new FileInputStream(fileName));
 					int size=in.read();
 					int sum=0;
 					while(size==255)
@@ -223,9 +223,10 @@ public class MyModel extends CommonModel {
 					notifyObservers("Error in loading file");
 				}
 			}
-			else 
+			else {
 				setChanged();
-			notifyObservers("ERROR: maze name is incorrect ");
+				notifyObservers("ERROR: maze name is incorrect ");
+			}
 		}
 		else {
 			setChanged();

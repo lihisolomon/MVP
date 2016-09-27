@@ -59,7 +59,7 @@ public class GenerateMazeWindow extends BasicWindow {
 				floors=Integer.parseInt(txtFloors.getText());
 				rows = Integer.parseInt(txtRows.getText());
 				cols = Integer.parseInt(txtCols.getText());
-				displayInfo("Info","maze name : " + name + "\nfloors: "+floors +"\nrows: " + rows + "\ncols: " + cols);
+				//displayInfo("Info","maze name : " + name + "\nfloors: "+floors +"\nrows: " + rows + "\ncols: " + cols);
 				shell.dispose();
 			}
 			

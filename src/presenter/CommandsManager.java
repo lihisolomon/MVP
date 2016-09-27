@@ -149,7 +149,11 @@ public class CommandsManager {
 		@Override
 		public void doCommand(String[] args) {
 			String mazeName=args[0];
-			String alg=args[1];
+			String alg=null;
+			try{
+				alg=args[1];
+			}
+			catch (Exception e) {}
 			model.solveMaze(mazeName ,alg);
 		}
 	}

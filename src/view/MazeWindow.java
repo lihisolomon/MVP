@@ -2,8 +2,8 @@ package view;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.events.ShellListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -37,7 +37,7 @@ public class MazeWindow extends BasicWindow{
     protected MenuItem aboutMenuItem;
     protected MenuItem exitMenuItem;
     
-    protected Maze2D mazeDisplay;
+    protected Maze2dDisplay mazeDisplay;
 	protected Maze3d maze;
 
     /**
@@ -64,7 +64,7 @@ public class MazeWindow extends BasicWindow{
 		generateMazeButton.setText("Genenrate Maze");
 		generateMazeButton.setLayoutData(new GridData(SWT.FILL,SWT.NONE,false,false,1,1));
 		
-		mazeDisplay=new Maze2D(shell,SWT.BORDER);
+		mazeDisplay=new Maze2dDisplay(shell,SWT.BORDER);
 		mazeDisplay.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 4));
 		
 		solutionButton=(new Button(shell, SWT.PUSH));
@@ -124,11 +124,10 @@ public class MazeWindow extends BasicWindow{
     	shell.setMenuBar(menuBar);
     }
     
-  public void generateKeyListener(KeyAdapter listener)
-  {
-	  mazeDisplay.addKeyListener(listener);
-  }
-    
+    public void generateKeyListener(KeyAdapter listener)
+    {
+    	mazeDisplay.addKeyListener(listener);
+    }
     
     /**
      * generateMazeSelectionListener- listener to generate maze
@@ -212,6 +211,18 @@ public class MazeWindow extends BasicWindow{
 		aboutMenuItem.addSelectionListener(listener);
 	}
 	
+	public void zoomInOutScreen(MouseWheelListener listener){
+		shell.addMouseWheelListener(listener);
+	}
+	
+	public void finishGame(SelectionListener listener) {
+		Boolean response=displayQuesion("Finish", "Do you want to start a new game?");
+		if (response)
+			generateMazeSelectionListener(listener);
+		else
+			exitSelectionListener(listener);
+	}
+	
 	/**
      * exitSelectionListener- listener to exit
      * @param listener
@@ -228,21 +239,57 @@ public class MazeWindow extends BasicWindow{
 		shell.dispose();
 	}
 
-	public Maze2D getMazeDisplay() {
+	/**
+	 * getter of mazeDisplay
+	 * @returnmazeDisplay
+	 */
+	public Maze2dDisplay getMazeDisplay() {
 		return mazeDisplay;
 	}
 
-	public void setMazeDisplay(Maze2D mazeD) {
+	/**
+	 * setter of mazeDisplay
+	 * @param mazeD
+	 */
+	public void setMazeDisplay(Maze2dDisplay mazeD) {
 		this.mazeDisplay = mazeD;
 	}
 
+	/**
+	 * getter of the maze
+	 * @return maze- Maze3d
+	 */
 	public Maze3d getMaze() {
 		return maze;
 	}
 
+	/**
+	 * setter of maze3D
+	 * @param maze
+	 */
 	public void setMaze(Maze3d maze) {
 		this.maze = maze;
 	}
 	
 	
+	/**
+	 * Function to perform zoom in or zoom out with ctrl + mouse wheel
+	 * @param scroll - Positive for zoom in , Negative for zoom out
+	 */
+	public void performZoom(int scroll) {
+		int length = shell.getSize().x;
+		int width = shell.getSize().y;
+
+		if(scroll < 0)
+			shell.setSize((int)(length*0.99), (int)(width*0.99));
+		else
+			shell.setSize((int)(length*1.01), (int)(width*1.01));
+	}
+	
+	/**
+	 * redraw
+	 */
+	public void redraw() {
+        shell.redraw();
+	}	
 }
