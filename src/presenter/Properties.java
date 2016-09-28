@@ -14,7 +14,7 @@ public class Properties implements Serializable{
 	private String viewStyle;
 
 	/**
-	 * CTOR
+	 * CTOR.
 	 */
 	public Properties() {
 		this.generateMaze=null;
@@ -23,10 +23,11 @@ public class Properties implements Serializable{
 	}
 	
 	/**
-	 * CTOR
+	 * CTOR.
 	 * @param generateMaze the Algorithm we will use to generate maze
 	 * @param solutionAlg the Algorithm we will use to solve a maze
 	 * @param numThreads the number we will put in the threadPool
+	 * @param viewStyle the view style
 	 */
 	public Properties(String generateMaze, String solutionAlg, int numThreads, String viewStyle){
 		this.generateMaze=generateMaze;
@@ -37,7 +38,7 @@ public class Properties implements Serializable{
 	
 	/**
 	 * copy CTOR
-	 * @param pr- properties to copy
+	 * @param pr-properties
 	 */
 	public Properties(Properties pr) {
 		this.generateMaze=pr.generateMaze;
@@ -48,7 +49,7 @@ public class Properties implements Serializable{
 	
 	/**
 	 * get the generateMaze
-	 * @return
+	 * @return the generate maze
 	 */
 	public String getGenerateMaze() {
 		return generateMaze;
@@ -56,7 +57,7 @@ public class Properties implements Serializable{
 
 	/**
 	 * setter the generateMaze
-	 * @param generateMaze
+	 * @param generateMaze the new generate maze
 	 */
 	public void setGenerateMaze(String generateMaze) {
 		this.generateMaze = generateMaze;
@@ -64,7 +65,7 @@ public class Properties implements Serializable{
 
 	/**
 	 * get the solutionAlg
-	 * @return
+	 * @return the solution alg
 	 */
 	public String getSolutionAlg() {
 		return solutionAlg;
@@ -72,7 +73,7 @@ public class Properties implements Serializable{
 
 	/**
 	 * setter the solutionAlg
-	 * @param solutionAlg
+	 * @param solutionAlg the new solution alg
 	 */
 	public void setSolutionAlg(String solutionAlg) {
 		this.solutionAlg = solutionAlg;
@@ -88,16 +89,24 @@ public class Properties implements Serializable{
 
 	/**
 	 * setter the number of thread
-	 * @param numThreads
+	 * @param numThreads the new num threads
 	 */
 	public void setNumThreads(int numThreads) {
 		this.numThreads = numThreads;
 	}
 
+	/**
+	 * Gets the view style
+	 * @return the view style
+	 */
 	public String getViewStyle() {
 		return viewStyle;
 	}
 
+	/**
+	 * Sets the view style
+	 * @param viewStyle the new view style
+	 */
 	public void setViewStyle(String viewStyle) {
 		this.viewStyle = viewStyle;
 	}

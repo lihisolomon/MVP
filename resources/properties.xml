@@ -2,8 +2,8 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment>Properties of Maze3d</comment>
-<entry key="SolutionAlgorthim">bfs</entry>
-<entry key="ViewStyle">gui</entry>
-<entry key="NumberOfThreads">10</entry>
-<entry key="GenerateType">simple</entry>
+<entry key="SolutionAlgorthim">DFS</entry>
+<entry key="ViewStyle">GUI</entry>
+<entry key="NumberOfThreads">100</entry>
+<entry key="GenerateType">growing</entry>
 </properties>

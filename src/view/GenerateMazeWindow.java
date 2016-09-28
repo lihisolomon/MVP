@@ -8,13 +8,27 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+
+/**
+ * The Class GenerateMazeWindow.
+ */
 public class GenerateMazeWindow extends BasicWindow {
+	
+	
 	String name;
+
 	int floors, rows, cols;
 	
+	/**
+	 * Instantiates a new generate maze window.
+	 *
+	 * @param width 
+	 * @param height
+	 */
 	public GenerateMazeWindow(int width, int height) {
 		super(width, height);
 	}
+
 
 	@Override
 	public void initWidgets() {
@@ -68,18 +82,34 @@ public class GenerateMazeWindow extends BasicWindow {
 		});	
 	}
 
+	/**
+	 * Gets the name
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Gets the floors
+	 * @return the floors
+	 */
 	public int getFloors() {
 		return floors;
 	}
 
+	/**
+	 * Gets the rows
+	 * @return the rows
+	 */
 	public int getRows() {
 		return rows;
 	}
 
+	/**
+	 * Gets the cols
+	 * @return the cols
+	 */
 	public int getCols() {
 		return cols;
 	}

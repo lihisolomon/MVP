@@ -1,10 +1,7 @@
 package view;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Observable;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
@@ -20,17 +17,25 @@ import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 
+
+/**
+ * GuiView class extends CommonView.
+ */
 public class GuiView extends CommonView{
-	protected Maze3d myMaze;
+
+
 	protected String mazeName;
 	protected MazeWindow mazeWindow;
-	protected Solution<Position> solution;
-	protected Timer timer;
-	protected TimerTask timerTask ;
 	
+	/**
+	 * CTOR.
+	 */
 	public GuiView() {
 		mazeWindow=new MazeWindow(500, 500);
 		
+		/**
+		 * generate maze listener
+		 */
 		mazeWindow.generateMazeSelectionListener(new SelectionListener() {
 			
 			@Override
@@ -48,30 +53,45 @@ public class GuiView extends CommonView{
 			public void widgetDefaultSelected(SelectionEvent arg0) {}
 		});
 		
+		/**
+		 * solve maze listener
+		 */
 		mazeWindow.solutionSelectionListener(new SelectionListener() {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				setChanged();
-				notifyObservers("solve "+ mazeName +"  ");
-				setChanged();
-				notifyObservers("display_solution "+ mazeName);
+				if(mazeWindow.getMazeDisplay().getMaze() != null) {
+					setChanged();
+					notifyObservers("solve "+ mazeName +"  ");
+					setChanged();
+					notifyObservers("display_solution "+ mazeName);
+				}
+				else {
+					 mazeWindow.displayError("Error","You did not generate a maze!");
+				}
 			}
 			
 			@Override
 			public void widgetDefaultSelected(SelectionEvent arg0) {}
 		});
 		
+		/**
+		 * hint listener
+		 */
 		mazeWindow.hintSelectionListener(new SelectionListener() {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				if(mazeWindow.getMazeDisplay().getCharacterPosition().getX()>mazeWindow.getMazeDisplay().getEnd().getX())
-					mazeWindow.displayInfo("Hint!!!", "Go down a floor (pageDown)");
-				else if (mazeWindow.getMazeDisplay().getCharacterPosition().getX()<mazeWindow.getMazeDisplay().getEnd().getX())
-					mazeWindow.displayInfo("Hint!!!", "Go up a floor (pageUp)");
+				if(mazeWindow.getMazeDisplay().getMaze() != null) {
+					if(mazeWindow.getMazeDisplay().getCharacterPosition().getX()>mazeWindow.getMazeDisplay().getEnd().getX())
+						mazeWindow.displayInfo("Hint!!!", "Go down a floor (pageDown)");
+					else if (mazeWindow.getMazeDisplay().getCharacterPosition().getX()<mazeWindow.getMazeDisplay().getEnd().getX())
+						mazeWindow.displayInfo("Hint!!!", "Go up a floor (pageUp)");
+					else
+						mazeWindow.displayInfo("Hint!!!", "You are on the Correct Floor");
+				}
 				else
-					mazeWindow.displayInfo("Hint!!!", "you are on the correct floor");
+					mazeWindow.displayError("Error", "You did not generate a maze!");
 			}
 			
 			@Override
@@ -114,11 +134,15 @@ public class GuiView extends CommonView{
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				String fileName = mazeWindow.displayFileDialog(SWT.SAVE, "Save maze", new String[] { "*.maz" }, "C:\\");
-				if(fileName != null) {
-					setChanged();
-					notifyObservers("save_maze "+mazeName+" "+fileName);
+				if(mazeWindow.getMaze() != null) {
+					String fileName = mazeWindow.displayFileDialog(SWT.SAVE, "Save maze", new String[] { "*.maz" }, "C:\\");
+					if(fileName != null) {
+						setChanged();
+						notifyObservers("save_maze "+mazeName+" "+fileName);
+					}
 				}
+				else
+					mazeWindow.displayError("Error Saving", "There is no maze to Save, please generate maze");
 			}
 			
 			@Override
@@ -134,7 +158,7 @@ public class GuiView extends CommonView{
 				setChanged();
 				notifyObservers("edit_properties " +win.getGenerateMaze()+ " "+win.getSolutionAlg()+ " " +
 						win.getNumThreads()+" "+win.getViewStyle());
-				mazeWindow.displayInfo("Edit Properties", "the Properties was edited succesfully");			
+				mazeWindow.displayInfo("Edit Properties", "the Properties was edited succesfully\nPlease restart the program");			
 			}
 			
 			@Override
@@ -204,7 +228,6 @@ public class GuiView extends CommonView{
 					notifyObservers("exit");
 					mazeWindow.exit();
 				}
-				
 			}
 			
 			@Override
@@ -241,6 +264,9 @@ public class GuiView extends CommonView{
 		exitButton();
 	}
 	
+	/**
+	 * Exit button.
+	 */
 	public void exitButton(){
 		mazeWindow.shell.addListener(SWT.Close, new Listener() {
 			@Override
@@ -251,18 +277,19 @@ public class GuiView extends CommonView{
         });
 	}
 	
+
 	@Override
 	public void printOutput(String str) {}
 
 	@Override
 	public void notifyMazeIsReady(String name) {
 		mazeWindow.displayInfo("Maze", "the maze was created succesfully");
-		
 	}
+
 
 	@Override
 	public void displayMaze(Maze3d maze) {
-		if (maze== null) 
+		if (mazeWindow.getMaze() != null) 
 			mazeWindow.displayError("Error","this maze does not exist");
 		else
 		{	
@@ -273,6 +300,7 @@ public class GuiView extends CommonView{
 		}	
 	}
 	
+
 	@Override
 	public void start() {
 		mazeWindow.run();
@@ -281,50 +309,19 @@ public class GuiView extends CommonView{
 	@Override
 	public void displayFiles(File[] listOfFiles) {}
 
+
 	@Override
 	public void displaySolution(Solution<Position> solution) {
-		timer=new Timer();
-		
-		if (solution==null)
-			mazeWindow.displayError("Error","TRY TO SOLVE IT YOURSELF, IT'S HARD!!!!");
-		else{
-			ArrayList<Position> s=solution.stackToArrayList();
-			Position [] positions = new Position[s.size()];
-
-			for (int i=0;i<s.size();i++)
-				positions[i] = s.get(i);
-				
-			timerTask  = new TimerTask() {
-
-				@Override
-				public void run() {
-					for (Position p:positions){
-						mazeWindow.display.syncExec(new Runnable() {
-							@Override
-							public void run() {
-								mazeWindow.getMazeDisplay().move(p);
-								if(p.equals(mazeWindow.getMazeDisplay().getEnd()))
-								{
-									timer.cancel();
-									timerTask.cancel();
-								}
-							}
-						});
-					
-					}
-				}
-				
-			};
-			timer.scheduleAtFixedRate(timerTask, 0,300);
-			
-			}
-		
+		mazeWindow.getMazeDisplay().moveToStart();
+		mazeWindow.mazeDisplay.solveMaze(solution);
 	}
+
 
 	@Override
 	public void displayCrossSection(int[][] maze2d) {
 		this.mazeWindow.getMazeDisplay().setMazeData(maze2d);
 	}
+
 
 	@Override
 	public void update(Observable o, Object arg) {
@@ -332,12 +329,13 @@ public class GuiView extends CommonView{
 			setChanged();
 			notifyObservers(arg);
 		}
-		
 	}
 
+	/**
+	 * Gets the maze window
+	 * @return the maze window
+	 */
 	public MazeWindow getMazeWindow() {
 		return mazeWindow;
 	}
-	
-	
 }

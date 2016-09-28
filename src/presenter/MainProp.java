@@ -1,13 +1,20 @@
 package presenter;
 
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Properties;
 
+/**
+ * The Class MainProp.
+ */
 public class MainProp {
 
+	/**
+	 * The main method
+	 * @param args the arguments
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void main(String[] args) throws IOException {
 		presenter.Properties pro=new presenter.Properties("growing","BFS",10,"GUI");
 		Properties properties=new Properties();

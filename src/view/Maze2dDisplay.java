@@ -1,28 +1,42 @@
 package view;
 
+import java.util.ArrayList;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 
 import algorithms.mazeGenerators.Position;
+import algorithms.search.Solution;
 
+
+/**
+ * The Class Maze2dDisplay.
+ */
 public class Maze2dDisplay extends MazeDisplay{
+	
 	Image startIm; 
 	Image finishIm;
 	Image characterIm;
 	Image wallIm;
 	Image winIm;
-	
+
 	int[][] mazeData;
 	Position start;
 	Position end;
-	Boolean finished;
+	Thread t;
 	
+	/**
+	 * Instantiates a new 2dmaze display
+	 * @param parent
+	 * @param style
+	 */
 	public Maze2dDisplay(Composite parent, int style) {
 		super(parent,style);
-		finished=false;
+		
 		startIm = new Image(getDisplay(), "./resources/start.jpeg"); //get image of start position
 		finishIm = new Image(getDisplay(), "./resources/finish.jpeg"); //get image of goal position
 		characterIm = new Image(getDisplay(), "./resources/towelie.jpeg"); //get image of character
@@ -59,12 +73,11 @@ public class Maze2dDisplay extends MazeDisplay{
                     if(characterPosition.getX() == end.getX())
                     	 e.gc.drawImage(finishIm, 0, 0, finishIm.getBounds().width,finishIm.getBounds().height,end.getZ()*w,end.getY()*h,w,h);
                    
-                    printCharacter(e, characterPosition);
-                    
-                    if(characterPosition.equals(end)) {
+                   printCharacter(e, characterPosition);
+                   if(characterPosition.equals(end)) {
                     	e.gc.drawImage(winIm, 0, 0, winIm.getBounds().width,winIm.getBounds().height,0,0,width,height);
-                    	finished=true;
-                    }                  
+                    }  
+                    
                     
                  }
 			}
@@ -73,7 +86,7 @@ public class Maze2dDisplay extends MazeDisplay{
 
 	/**
 	 * set character position
-	 * @param position to set
+	 * @param position 
 	 */
 	public void setCharacterPosition(Position position) {
 		characterPosition = position;
@@ -81,7 +94,7 @@ public class Maze2dDisplay extends MazeDisplay{
 	
     /**
      *  move the character to position
-     *  @param p-position
+     * @param p- the position to move
      */
 	@Override
 	public void move(Position p) {
@@ -97,6 +110,7 @@ public class Maze2dDisplay extends MazeDisplay{
 	 @Override
      public void moveToStart() {
 		 move(start);
+		 setMazeData(maze.getMaze()[characterPosition.getX()]);
      }
 	
 	/**
@@ -138,6 +152,9 @@ public class Maze2dDisplay extends MazeDisplay{
         }
     }
 
+    /** 
+     * move the character down
+     */
     @Override
     public void moveDown() {
     	if(characterPosition.getY() < mazeData.length -1) {
@@ -149,7 +166,7 @@ public class Maze2dDisplay extends MazeDisplay{
     }
    
     /**
-     * move the character down
+     * move the character floor down
      */
     @Override
     public void movePageDown() {
@@ -163,7 +180,7 @@ public class Maze2dDisplay extends MazeDisplay{
     }
 
     /**
-     *  move the character floor
+     *  move the character floor up
      */
     @Override
     public void movePageUp() {
@@ -177,8 +194,8 @@ public class Maze2dDisplay extends MazeDisplay{
     }
 
 	/**
-	 * set the 2d maze
-	 * @param mazeData
+	 * set the 2dmaze
+	 * @param mazeData the new maze data
 	 */
 	public void setMazeData(int[][] mazeData) {
 		this.mazeData = mazeData;
@@ -232,8 +249,8 @@ public class Maze2dDisplay extends MazeDisplay{
 	
 	/**
 	 * print the character in the displayer
-	 * @param e
-	 * @param characterP
+	 * @param e 
+	 * @param characterP the character Position
 	 */
 	public void printCharacter(PaintEvent e,Position characterP)
 	{
@@ -243,5 +260,96 @@ public class Maze2dDisplay extends MazeDisplay{
 		int w=width/mazeData[0].length;
 		int h=height/mazeData.length;
 		e.gc.drawImage(characterIm, 0, 0, characterIm.getBounds().width,characterIm.getBounds().height,characterP.getZ()*w,characterP.getY()*h,w,h);
+	}
+	
+	/**
+	 * Solve the maze 
+	 * @param solution
+	 */
+	public void solveMaze(Solution<Position> solution) {
+		ArrayList<Position> s=solution.stackToArrayList();
+		t=new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				while(true) {
+					try {
+						Thread.sleep(500); 
+					} catch (Exception e) {}
+					Display.getDefault().asyncExec(new Runnable() {
+						
+						@Override
+						public void run() {
+								if(!characterPosition.equals(end)){
+									String result="";
+									try{
+										result=movefromPtoP(characterPosition,s.get(0));
+										switch (result) {
+										case "pageup":
+											movePageUp();
+											break;
+										case "pagedown":
+											movePageDown();
+											break;
+										case "up":
+											moveUp();
+											break;
+										case "down":
+											moveDown();
+											break;
+										case "right":
+											moveRight();
+											break;
+										case "left":
+											moveLeft();
+											break;
+										default:
+											break;
+										}
+										if(characterPosition.equals(s.get(0)))
+											s.remove(0);
+									}catch (Exception e) {
+										t.interrupt();
+									}
+								}
+						}
+					});
+					
+				}
+				
+			}
+		});
+		t.start();
+	}
+	
+	/**
+	 * Move from position to Position
+	 * @param f - from Position
+	 * @param t - to Position
+	 * @return the string to move
+	 */
+	public String movefromPtoP(Position f,Position t){
+		if (f.getX()<t.getX()) 
+			return "pageup";
+		else if (f.getX()>t.getX())
+			return "pagedown";
+		else if (f.getY()<t.getY())
+			return "down";
+		else if (f.getY()>t.getY())
+			return "up";
+		else if (f.getZ()<t.getZ())
+			return "right";
+		else if (f.getZ()>t.getZ())
+			return "left";
+		else 
+			return "";
+	}
+
+	/**
+	 * Gets the thread
+	 * @return the thread
+	 */
+	public Thread getThread() {
+		return t;
 	}
 }

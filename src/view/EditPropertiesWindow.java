@@ -5,13 +5,25 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+
+/**
+ * The Class EditPropertiesWindow.
+ */
 public class EditPropertiesWindow extends BasicWindow {
+	
+
 	String generateMaze, solutionAlg, viewStyle;
 	Integer numThreads;
 	
+	/**
+	 * Instantiates a new edits the properties window
+	 * @param width
+	 * @param height
+	 */
 	public EditPropertiesWindow(int width, int height) {
 		super(width, height);
 	}
@@ -25,14 +37,20 @@ public class EditPropertiesWindow extends BasicWindow {
 		Label lblGenerateMaze = new Label(shell, SWT.NONE);
 		lblGenerateMaze.setText("Generate Type: ");
 		
-		Text txtGenerateMaze = new Text(shell, SWT.BORDER);
-		txtGenerateMaze.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		final Combo gCombo = new Combo(shell,SWT.READ_ONLY);
+		gCombo.setBounds(50, 50, 150, 65);
+		String gItems[] = {"growing","simple"};
+		gCombo.setItems(gItems);
+		gCombo.select(0);
 		
 		Label lblSolutionAlg = new Label(shell, SWT.NONE);
 		lblSolutionAlg.setText("Solution Algorithm: ");
 		
-		Text txtSolutionAlg = new Text(shell, SWT.BORDER);
-		txtSolutionAlg.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		final Combo sCombo = new Combo(shell,SWT.READ_ONLY);
+		sCombo.setBounds(50, 50, 150, 65);
+		String sItems[] = {"BFS", "DFS"};
+		sCombo.setItems(sItems);
+		sCombo.select(0);
 		
 		Label lblNumThreads = new Label(shell, SWT.NONE);
 		lblNumThreads.setText("Number of Threads: ");
@@ -43,8 +61,11 @@ public class EditPropertiesWindow extends BasicWindow {
 		Label lblViewStyle = new Label(shell, SWT.NONE);
 		lblViewStyle.setText("View Style: ");
 		
-		Text txtViewStyle = new Text(shell, SWT.BORDER);
-		txtViewStyle.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		final Combo vCombo = new Combo(shell,SWT.READ_ONLY);
+		vCombo.setBounds(50, 50, 150, 65);
+		String vItems[] = {"GUI", "CLI"};
+		vCombo.setItems(vItems);
+		vCombo.select(0);
 				
 		Button btnGenerateMaze = new Button(shell, SWT.PUSH);
 		shell.setDefaultButton(btnGenerateMaze);
@@ -55,12 +76,10 @@ public class EditPropertiesWindow extends BasicWindow {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {				
-				generateMaze=txtGenerateMaze.getText();
-				solutionAlg=txtSolutionAlg.getText();
+				generateMaze=gCombo.getText();
+				solutionAlg=sCombo.getText();
 				numThreads = Integer.parseInt(txtNumThreads.getText());
-				viewStyle=txtViewStyle.getText();
-				displayInfo("Info","The Properties are:"+"\nGenerateType: "+generateMaze+"\nSolution Algorithm: "+solutionAlg
-						+"\nNumber of Threads: "+numThreads + "\nView Style: " + viewStyle);
+				viewStyle=vCombo.getText();
 				shell.dispose();
 			}
 			
@@ -69,22 +88,37 @@ public class EditPropertiesWindow extends BasicWindow {
 		});	
 	}
 
+	/**
+	 * Gets the maze
+	 * @return the generated maze
+	 */
 	public String getGenerateMaze() {
 		return generateMaze;
 	}
 
+	/**
+	 * Gets the solution alg
+	 * @return the solution alg
+	 */
 	public String getSolutionAlg() {
 		return solutionAlg;
 	}
 
+	/**
+	 * Gets the view style
+	 * @return the view style
+	 */
 	public String getViewStyle() {
 		return viewStyle;
 	}
 
+	/**
+	 * Gets the num threads
+	 * @return the num threads
+	 */
 	public Integer getNumThreads() {
 		return numThreads;
 	}
-
 	
 	
 }

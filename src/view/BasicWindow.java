@@ -9,8 +9,9 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
+
 /**
- * BasicWindow abstract class that extends Observable and implements Runnable
+ * BasicWindow abstract class that extends Observable and implements Runnable.
  */
 public abstract class BasicWindow extends Observable implements Runnable {
 
@@ -19,12 +20,13 @@ public abstract class BasicWindow extends Observable implements Runnable {
 	boolean ownDisplay = false;
 	
 	/**
-	 * CTOR
-	 * @param width of window
-	 * @param height of window
+	 * CTOR.
+	 *
+	 * @param width
+	 * @param height
 	 */
 	public BasicWindow(int width, int height) {
-		//display=new Display();
+
 		display = Display.getCurrent();
  		if(display == null) {
  			display = new Display();
@@ -33,24 +35,16 @@ public abstract class BasicWindow extends Observable implements Runnable {
 		shell=new Shell(display);
 		shell.setSize(width, height);
 		initWidgets();
-		
-//		shell.addListener(SWT.CLOSE	,new Listener() {
-//			@Override 
-//			public void handleEvent(Event event) {
-//				shell.close();
-//		        }
-//		});
-
 			
 	}
 	
 	/**
-	 * initWidgets
+	 * initWidgets.
 	 */
 	public abstract void initWidgets();
 	
 	/**
-	 * run method
+	 * run method.
 	 */
 	@Override
 	public void run() {
@@ -67,9 +61,9 @@ public abstract class BasicWindow extends Observable implements Runnable {
 	
 	/**
 	 * Display a message box to the user 
-	 * @param iconNum
-	 * @param title
-	 * @param message
+	 * @param iconNum 
+	 * @param title 
+	 * @param message 
 	 */
 	public void displayMessage(int iconNum,String title,String message)
 	{
@@ -89,7 +83,7 @@ public abstract class BasicWindow extends Observable implements Runnable {
 	/**
 	 * Display info messages
 	 * @param title
-	 * @param message
+	 * @param message 
 	 */
 	public void displayInfo(String title,String message)
 	{
@@ -98,8 +92,8 @@ public abstract class BasicWindow extends Observable implements Runnable {
 	
 	/**
 	 * Displays error messages
-	 * @param title
-	 * @param message
+	 * @param title 
+	 * @param message 
 	 */
 	public void displayError(String title,String message)
 	{
@@ -108,9 +102,9 @@ public abstract class BasicWindow extends Observable implements Runnable {
 	
 	/**
 	 * Display a Yes & no Question
-	 * @param title
-	 * @param message
-	 * @return
+	 * @param title 
+	 * @param message 
+	 * @return true, if successful
 	 */
 	public boolean displayQuesion(String title,String message)
 	{
@@ -123,11 +117,13 @@ public abstract class BasicWindow extends Observable implements Runnable {
 			else
 				return false;
 	}
+	
 	/**
 	 * Open a file dialog with user input styles and extentions
 	 * @param style
 	 * @param title
 	 * @param filterExtention
+	 * @param Path
 	 * @return filename
 	 */
 	public String displayFileDialog(int style,String title,String [] filterExtention,String Path)
@@ -139,6 +135,13 @@ public abstract class BasicWindow extends Observable implements Runnable {
 		return fd.open();
 	}
 	
+	/**
+	 * Display directory dialog
+	 * @param style
+	 * @param title
+	 * @param Path
+	 * @return the string
+	 */
 	public String displayDirectoryDialog(int style,String title,String Path){
 		DirectoryDialog d=new DirectoryDialog(shell, style);
 		d.setFilterPath(Path);

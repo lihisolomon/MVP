@@ -10,14 +10,14 @@ import view.View;
  * CommandsManager class
  */
 public class CommandsManager {
-	
+
 	private Model model;
 	private View view;
 		
 	/**
 	 * CTOR
-	 * @param model
-	 * @param view
+	 * @param model 
+	 * @param view 
 	 */
 	public CommandsManager(Model model, View view) {
 		this.model = model;
@@ -43,16 +43,15 @@ public class CommandsManager {
 		commands.put("save_properties", new savePropertiesCommand());
 		commands.put("edit_properties", new editPropertiesCommand());
 		commands.put("exit", new exitCommand());
-		//commands.put("maze_ready", new MazeReadyCommand());
 		
 		return commands;
 	}
 	
 	/**
-	 * Creates maze 
+	 * Creates maze
 	 */
 	class GenerateMazeCommand implements Command {
-
+		
 		@Override
 		public void doCommand(String[] args) {
 			String name = args[0];
@@ -64,10 +63,13 @@ public class CommandsManager {
 	}
 	
 	/**
-	 * Displays the maze 
+	 * Displays the maze.
 	 */
 	class DisplayMazeCommand implements Command {
 
+		/* (non-Javadoc)
+		 * @see presenter.Command#doCommand(java.lang.String[])
+		 */
 		@Override
 		public void doCommand(String[] args) {
 			String name = args[0];
@@ -76,18 +78,8 @@ public class CommandsManager {
 		}		
 	}
 	
-	/*class MazeReadyCommand implements Command {
-
-		@Override
-		public void doCommand(String[] args) {
-			String name = args[0];
-			String msg = "maze " + name + " is ready";
-		view.printOutput(msg);
-		}
-	}*/
-	
 	/**
-	 * Displays the files in a specific folder
+	 * Displays the files in a specific folder.
 	 */
 	public class displayFilesInPathCommand implements Command {
 
@@ -99,8 +91,7 @@ public class CommandsManager {
 	}
 
 	/**
-	 * save the maze into a file
-	 *
+	 * save the maze into a file.
 	 */
 	public class saveMazeCommand implements Command {
 
@@ -111,9 +102,9 @@ public class CommandsManager {
 			model.saveMaze(mazeName,fileName);
 		}
 	}
+	
 	/**
-	 * load a maze from file
-	 *
+	 * load a maze from file.
 	 */
 	public class loadMazeCommand implements Command {
 
@@ -126,8 +117,7 @@ public class CommandsManager {
 	}
 	
 	/**
-	 * display Cross Section of the maze
-	 *
+	 * display Cross Section of the maze.
 	 */
 	public class displayCrossSectionCommand implements Command {
 
@@ -141,8 +131,7 @@ public class CommandsManager {
 	}
 	
 	/**
-	 * solve the Maze
-	 *
+	 * solve the Maze.
 	 */
 	public class solveMazeCommand implements Command {
 
@@ -159,7 +148,7 @@ public class CommandsManager {
 	}
 	
 	/**
-	 * display the solution of the maze
+	 * display the solution of the maze.
 	 */
 	public class displaySolutionCommand implements Command {
 
@@ -170,24 +159,33 @@ public class CommandsManager {
 		}
 	}
 	
+	/**
+	 * The Class loadPropertiesCommand.
+	 */
 	public class loadPropertiesCommand implements Command{
-		
+
 		@Override
 		public void doCommand(String[] args) {
 			model.loadProperties(args[0]);
 		}
 	}
 	
+	/**
+	 * The Class savePropertiesCommand.
+	 */
 	public class savePropertiesCommand implements Command{
-		
+
 		@Override
 		public void doCommand(String[] args) {
 			model.saveProperties(args[0]);
 		}
 	}
 	
+/**
+ * The Class editPropertiesCommand.
+ */
 public class editPropertiesCommand implements Command{
-		
+
 		@Override
 		public void doCommand(String[] args) {
 			String generateMaze=args[0];
@@ -202,6 +200,7 @@ public class editPropertiesCommand implements Command{
 	 * exit
 	 */
 	public class exitCommand implements Command {
+
 		@Override
 		public void doCommand(String[] args) {
 			model.exit();

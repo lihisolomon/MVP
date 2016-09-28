@@ -12,19 +12,19 @@ import org.eclipse.swt.widgets.MenuItem;
 
 import algorithms.mazeGenerators.Maze3d;
 
+
 /**
- * MazeWindow class extends BasicWindow
+ * MazeWindow class extends BasicWindow.
  */
 public class MazeWindow extends BasicWindow{
+	
 	protected Button generateMazeButton;
 	protected Button solutionButton;
 	protected Button hintButton;
 	protected Button resetButton;
-	
 	protected Menu menuBar;
 	protected Menu FileMenu;
 	protected Menu HelpMenu;
-	
     protected MenuItem cascadeFileMenu;
     protected MenuItem cascadeHelpMenu;
     protected MenuItem actionMenuItem;
@@ -36,12 +36,12 @@ public class MazeWindow extends BasicWindow{
     protected MenuItem exportPropertiesMenuItem;
     protected MenuItem aboutMenuItem;
     protected MenuItem exitMenuItem;
-    
     protected Maze2dDisplay mazeDisplay;
 	protected Maze3d maze;
 
     /**
-     * CTOR
+     * CTOR.
+     *
      * @param width of window
      * @param height of window
      */
@@ -50,7 +50,7 @@ public class MazeWindow extends BasicWindow{
 	}
 
 	/**
-	 * initWidget- create the buttons
+	 * initWidget- create the buttons.
 	 */
 	@Override
 	public void initWidgets() {
@@ -81,7 +81,7 @@ public class MazeWindow extends BasicWindow{
 	}
 	
 	/**
-	 * initMenu- create the menu with items
+	 * initMenu- create the menu with items.
 	 */
     private void initMenu() {
     	menuBar=new Menu(shell, SWT.BAR);	
@@ -124,6 +124,10 @@ public class MazeWindow extends BasicWindow{
     	shell.setMenuBar(menuBar);
     }
     
+    /**
+     * Generate key listener
+     * @param listener
+     */
     public void generateKeyListener(KeyAdapter listener)
     {
     	mazeDisplay.addKeyListener(listener);
@@ -131,7 +135,7 @@ public class MazeWindow extends BasicWindow{
     
     /**
      * generateMazeSelectionListener- listener to generate maze
-     * @param listener
+     * @param listener 
      */
     public void generateMazeSelectionListener(SelectionListener listener){
     	generateMazeButton.addSelectionListener(listener);
@@ -148,73 +152,81 @@ public class MazeWindow extends BasicWindow{
 	}
 	
 	/**
-     * hintSelectionListener- listener for get hint
-     * @param listener
-     */
+	 * hintSelectionListener- listener for get hint
+	 * @param listener
+	 */
 	public void hintSelectionListener(SelectionListener listener){
 		hintButton.addSelectionListener(listener);
 	}
 	
 	/**
-     * resetSelectionListener- listener for reset the game
-     * @param listener
-     */
+	 * resetSelectionListener- listener for reset the game
+	 * @param listener 
+	 */
 	public void resetSelectionListener(SelectionListener listener){
 		resetButton.addSelectionListener(listener);
 	}
 	
 	/**
-     * loadMazeSelectionListener- listener for load a maze
-     * @param listener
-     */
+	 * loadMazeSelectionListener- listener for load a maze
+	 * @param listener 
+	 */
 	public void loadMazeSelectionListener(SelectionListener listener){
 		loadMazeMenuItem.addSelectionListener(listener);
 	}
 	
 	/**
-     * saveMazeSelectionListener- listener to save the maze
-     * @param listener
-     */
+	 * saveMazeSelectionListener- listener to save the maze
+	 * @param listener 
+	 */
 	public void saveMazeSelectionListener(SelectionListener listener){
 		saveMazeMenuItem.addSelectionListener(listener);
 	}
 	
 	/**
-     * editPropertiesSelectionListener- listener for the edit properties
-     * @param listener
-     */
+	 * editPropertiesSelectionListener- listener for the edit properties
+	 * @param listener 
+	 */
 	public void editPropertiesSelectionListener(SelectionListener listener){
 		editPropertiesMenuItem.addSelectionListener(listener);
 	}
 
 	/**
-     * importPropertiesSelectionListener- listener for the import the properties
-     * @param listener
-     */
+	 * importPropertiesSelectionListener- listener for the import the properties
+	 * @param listener 
+	 */
 	public void importPropertiesSelectionListener(SelectionListener listener){
 		importPropertiesMenuItem.addSelectionListener(listener);
 	}
 	
 	/**
-     * exportPropertiesSelectionListener- listener for the export the properties
-     * @param listener
-     */
+	 * exportPropertiesSelectionListener- listener for the export the properties
+	 * @param listener 
+	 */
 	public void exportPropertiesSelectionListener(SelectionListener listener){
 		exportPropertiesMenuItem.addSelectionListener(listener);
 	}
 	
 	/**
-     * exportPropertiesSelectionListener- listener for the export the properties
-     * @param listener
-     */
+	 * exportPropertiesSelectionListener- listener for the export the properties
+	 * @param listener 
+	 */
 	public void aboutSelectionListener(SelectionListener listener){
 		aboutMenuItem.addSelectionListener(listener);
 	}
 	
+	/**
+	 * Zoom in out screen
+	 * @param listener 
+	 */
 	public void zoomInOutScreen(MouseWheelListener listener){
 		shell.addMouseWheelListener(listener);
 	}
 	
+	/**
+	 * Finish game
+	 * @param listener
+	 */
 	public void finishGame(SelectionListener listener) {
 		Boolean response=displayQuesion("Finish", "Do you want to start a new game?");
 		if (response)
@@ -224,16 +236,16 @@ public class MazeWindow extends BasicWindow{
 	}
 	
 	/**
-     * exitSelectionListener- listener to exit
-     * @param listener
-     */
+	 * exitSelectionListener- listener to exit
+	 * @param listener 
+	 */
 	public void exitSelectionListener(SelectionListener listener){
 		exitMenuItem.addSelectionListener(listener);
 	};
 	
 
 	/**
-	 * close the shell
+	 * close the shell.
 	 */
 	public void exit(){
 		shell.dispose();
@@ -241,7 +253,7 @@ public class MazeWindow extends BasicWindow{
 
 	/**
 	 * getter of mazeDisplay
-	 * @returnmazeDisplay
+	 * @return the maze display
 	 */
 	public Maze2dDisplay getMazeDisplay() {
 		return mazeDisplay;
@@ -249,7 +261,7 @@ public class MazeWindow extends BasicWindow{
 
 	/**
 	 * setter of mazeDisplay
-	 * @param mazeD
+	 * @param mazeD the new maze display
 	 */
 	public void setMazeDisplay(Maze2dDisplay mazeD) {
 		this.mazeDisplay = mazeD;
@@ -265,7 +277,7 @@ public class MazeWindow extends BasicWindow{
 
 	/**
 	 * setter of maze3D
-	 * @param maze
+	 * @param maze the new maze
 	 */
 	public void setMaze(Maze3d maze) {
 		this.maze = maze;
@@ -287,7 +299,7 @@ public class MazeWindow extends BasicWindow{
 	}
 	
 	/**
-	 * redraw
+	 * redraw.
 	 */
 	public void redraw() {
         shell.redraw();

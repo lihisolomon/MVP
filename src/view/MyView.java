@@ -9,17 +9,20 @@ import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 
+
 /**
- * MyView extends CommonView
+ * MyView extends CommonView.
  */
 public class MyView extends CommonView {
 	
+
 	protected CLI cli;
 	protected BufferedReader in;
 	protected PrintWriter out;
 
 	/**
-	 * CTOR
+	 * CTOR.
+	 *
 	 * @param in the input stream object
 	 * @param out the output stream object
 	 */
@@ -33,6 +36,7 @@ public class MyView extends CommonView {
 	
 	/**
 	 * print a message to the user
+	 * @param str
 	 */
 	@Override
 	public void printOutput(String str) {
@@ -41,6 +45,7 @@ public class MyView extends CommonView {
 
 	/**
 	 * notify to the client that the maze is ready
+	 * @param name
 	 */
 	@Override
 	public void notifyMazeIsReady(String name) {
@@ -49,7 +54,7 @@ public class MyView extends CommonView {
 
 	/**
 	 * Prints the maze
-	 * @param maze- Maze3D
+	 * @param maze 
 	 */
 	@Override
 	public void displayMaze(Maze3d maze) {
@@ -67,6 +72,7 @@ public class MyView extends CommonView {
 		}
 	}
 
+
 	@Override
 	public void start() {
 		cli.start();
@@ -74,6 +80,8 @@ public class MyView extends CommonView {
 
 	/**
 	 * Updates the Observable
+	 * @param o
+	 * @param arg 
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
@@ -85,6 +93,7 @@ public class MyView extends CommonView {
 	
 	/**
 	 * Prints all the files in specific folder
+	 * @param listOfFiles the list of files
 	 */
 	@Override
 	public void displayFiles(File[] listOfFiles)
@@ -101,6 +110,7 @@ public class MyView extends CommonView {
 	
 	/**
 	 * display the solution to the user
+	 * @param solution
 	 */
 	@Override
 	public void displaySolution(Solution<Position> solution) {
@@ -110,6 +120,7 @@ public class MyView extends CommonView {
 	
 	/**
 	 * display Cross Section
+	 * @param maze2d 
 	 */
 	@Override
 	public void displayCrossSection(int[][] maze2d){

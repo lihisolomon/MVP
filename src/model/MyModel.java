@@ -22,6 +22,7 @@ import java.util.zip.GZIPOutputStream;
 import algorithms.mazeGenerators.GrowingTreeGenerator;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
+import algorithms.mazeGenerators.SimpleMaze3dGenerator;
 import algorithms.search.BFS;
 import algorithms.search.DFS;
 import algorithms.search.Maze3dSearchable;
@@ -30,30 +31,31 @@ import io.MyCompressorOutputStream;
 import io.MyDecompressorInputStream;
 
 /**
- * MyModel class extends Observable implements Model
+ * MyModel class extends Observable implements Model.
  */
 public class MyModel extends CommonModel {
+	
 	protected String generateType;
 	protected String solveAlg;
 	protected Integer threadNum;
 	protected String viewStyle;
 	
 	/**
-	* CTOR
-	*/
+	 * CTOR
+	 */
 	public MyModel() {
 		super();
 		//load mazes & solutions
 		loadSolutions();
 		//load from properties file
-		loadProperties("properties.xml");
+		loadProperties("./resources/properties.xml");
 	}		
 	
 	/**
 	 * generate the maze
-	 * @param name
-	 * @param floors
-	 * @param rows
+	 * @param name 
+	 * @param floors 
+	 * @param rows 
 	 * @param cols
 	 */
 	@Override
@@ -68,7 +70,7 @@ public class MyModel extends CommonModel {
 					maze = new GrowingTreeGenerator().generate(floors,rows, cols);
 				}
 				else {//it is a simple
-					maze = new GrowingTreeGenerator().generate(floors,rows, cols);
+					maze = new SimpleMaze3dGenerator().generate(floors,rows, cols);
 				}
 				for(Entry<String, Maze3d> current:mazes.entrySet())
 				{
@@ -111,6 +113,8 @@ public class MyModel extends CommonModel {
 
 	/**
 	 * getter of maze
+	 * @param name
+	 * @return the maze
 	 */
 	@Override
 	public Maze3d getMaze(String name) {
@@ -119,6 +123,8 @@ public class MyModel extends CommonModel {
 
 	/**
 	 * return the list of the files
+	 * @param path
+	 * @return the file[]
 	 */
 	@Override
 	public File[] listFiles(String path) {
@@ -141,7 +147,9 @@ public class MyModel extends CommonModel {
 	}
 	
 	/**
-	 * save the maze into a file 
+	 * save the maze into a file
+	 * @param mazeName 
+	 * @param fileName
 	 */
 	@Override
 	public void saveMaze(String mazeName,String fileName) {
@@ -182,6 +190,8 @@ public class MyModel extends CommonModel {
 	
 	/**
 	 * load the maze from a file
+	 * @param mazeName 
+	 * @param fileName
 	 */
 	@Override
 	public void loadMaze(String mazeName,String fileName) {
@@ -236,6 +246,8 @@ public class MyModel extends CommonModel {
 	
 	/**
 	 * solve the maze
+	 * @param mazeName
+	 * @param alg
 	 */
 	@SuppressWarnings("rawtypes")
 	@Override
@@ -315,6 +327,8 @@ public class MyModel extends CommonModel {
 	
 	/**
 	 * get the solution of the maze
+	 * @param mazeName 
+	 * @return the solution
 	 */
 	public Solution<Position> getSolution(String mazeName){
 		if ( mazeName!=null )
@@ -344,7 +358,11 @@ public class MyModel extends CommonModel {
 	
 	/**
 	 * get Cross Section
-	 * axle index maze name
+	 * axle index of the maze 
+	 * @param axis
+	 * @param floors
+	 * @param mazeName
+	 * @return the cross section
 	 */
 	public int[][] getCrossSection(String axis,Integer floors,String mazeName){
 		if (axis!=null && floors!=null && mazeName!=null){
@@ -376,14 +394,14 @@ public class MyModel extends CommonModel {
 	}
 	
 	/**
-	 * Saves the mazes
+	 * Saves the maze
 	 */
 	@Override
 	public void saveCache()
 	{
 		ObjectOutputStream oos = null;
 		try {
-		    oos = new ObjectOutputStream(new GZIPOutputStream(new FileOutputStream("solutions.zip")));
+		    oos = new ObjectOutputStream(new GZIPOutputStream(new FileOutputStream("./resources/solutions.zip")));
 			oos.writeObject(mazes);
 			oos.writeObject(solutions);			
 			
@@ -399,20 +417,21 @@ public class MyModel extends CommonModel {
 			}
 		}
 	}
+	
 	/**
-	 * Loads the mazes 
+	 * Loads the maze
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public void loadSolutions() {
-		File file = new File("solutions.zip");
+		File file = new File("./resources/solutions.zip");
 		if (!file.exists() | !file.canRead())
 			return;
 		
 		ObjectInputStream ois = null;
 		
 		try {
-			ois = new ObjectInputStream(new GZIPInputStream(new FileInputStream("solutions.zip")));
+			ois = new ObjectInputStream(new GZIPInputStream(new FileInputStream(file)));
 			mazes = (Map<String, Maze3d>)ois.readObject();
 			solutions = (Map<String, Solution<Position>>)ois.readObject();	
 			
@@ -432,7 +451,8 @@ public class MyModel extends CommonModel {
 	}
 	
 	/**
-	 * Load the xml file 
+	 * Load the xml file
+	 * @param fileName
 	 */
 	@Override
 	public void loadProperties(String fileName)
@@ -460,6 +480,7 @@ public class MyModel extends CommonModel {
 	
 	/**
 	 * Save properties to xml
+	 * @param folderName 
 	 */
 	@Override
 	public void saveProperties(String folderName)
@@ -487,9 +508,12 @@ public class MyModel extends CommonModel {
 	}
 	
 	 /**
-	  * edit properties
-	  * @param listener
-	  */
+ 	 * edit properties
+ 	 * @param generateMaze 
+ 	 * @param solutionAlg 
+ 	 * @param numThreads 
+ 	 * @param viewStyle
+ 	 */
 	public void editProperties(String generateMaze, String solutionAlg, Integer numThreads, String viewStyle){
 		if (generateMaze!=null && solutionAlg!=null && numThreads!=null && viewStyle!=null )
 		{
@@ -497,12 +521,14 @@ public class MyModel extends CommonModel {
 				this.generateType=generateMaze;
 			if (solutionAlg!=null)
 				this.solveAlg=solutionAlg;
-			if (numThreads!=null)
+			if (numThreads!=null){
 				this.executor = Executors.newFixedThreadPool(numThreads);
+				this.threadNum=numThreads;
+			}
 			if(viewStyle!=null)
 				this.viewStyle=viewStyle;
 				
-			saveProperties(".");
+			saveProperties("./resources/");
 		}
 		else{
 			setChanged();
@@ -510,6 +536,22 @@ public class MyModel extends CommonModel {
 		}
 	}
 	
+	/**
+	 * Gets the view style
+	 * @return the view style
+	 */
+	public String getViewStyle() {
+		return viewStyle;
+	}
+
+	/**
+	 * Sets the view style
+	 * @param viewStyle the new view style
+	 */
+	public void setViewStyle(String viewStyle) {
+		this.viewStyle = viewStyle;
+	}
+
 	/**
 	 * exit command
 	 */

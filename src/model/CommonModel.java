@@ -11,11 +11,18 @@ import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 
+/**
+ * The Class CommonModel.
+ */
 public abstract class CommonModel extends Observable implements Model {
+
 	protected ExecutorService executor;
 	protected Map<String, Maze3d> mazes;
 	protected Map<String, Solution<Position>> solutions;
 	
+	/**
+	 * CTOR
+	 */
 	public CommonModel() {
 		this.mazes = new ConcurrentHashMap<String, Maze3d>();
 		this.solutions = new HashMap<>();
@@ -26,6 +33,7 @@ public abstract class CommonModel extends Observable implements Model {
 
 	@Override
 	public abstract Maze3d getMaze(String name);
+	
 	@Override
 	public abstract void saveMaze(String mazeName, String fileName) ;
 
@@ -46,19 +54,19 @@ public abstract class CommonModel extends Observable implements Model {
 
 	@Override
 	public abstract int[][] getCrossSection(String axis,Integer floor,String mazeName);
-	
+
 	@Override
 	public abstract void saveCache();
-	
+
 	@Override
 	public abstract void loadSolutions();
-	
+
 	@Override
 	public abstract void loadProperties(String fileName);
-	
+
 	@Override
 	public abstract void saveProperties(String path);
-	
+
 	@Override
 	public abstract void editProperties(String generateMaze, String solutionAlg, Integer numThreads, String viewStyle);
 }

@@ -5,14 +5,24 @@ import java.util.Observable;
 import model.Model;
 import view.View;
 
+/**
+ * The Class MyPresenter.
+ */
 public class MyPresenter extends CommonPresenter {
 
+	/**
+	 * CTOR
+	 * @param model the model
+	 * @param view the view
+	 */
 	public MyPresenter(Model model, View view) {
 		super(model, view);
 	}
 
 	/**
 	 * update gets the input from the user and start the command
+	 * @param o 
+	 * @param arg
 	 */
 	@Override
 	public void update(Observable o, Object arg) {

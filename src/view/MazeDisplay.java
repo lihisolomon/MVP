@@ -6,11 +6,20 @@ import org.eclipse.swt.widgets.Composite;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 
+/**
+ * The Class MazeDisplay.
+ */
 public abstract class MazeDisplay extends Canvas{
+
 
 	Maze3d maze;
 	Position characterPosition;
 	
+	/**
+	 * Instantiates a new maze display
+	 * @param parent
+	 * @param style
+	 */
 	public MazeDisplay(Composite parent, int style) {
 		super(parent, style);
 	}
@@ -35,41 +44,33 @@ public abstract class MazeDisplay extends Canvas{
 	
 	/**
 	 * set the character in a position
+	 * @param position the new character position
 	 */
 	public abstract  void setCharacterPosition(Position position);
 	
+	/**
+	 * Gets the character position
+	 * @return the character position
+	 */
 	public Position getCharacterPosition() {
 		return characterPosition;
 	}
 
-	/**
-	 * move character one step up
-	 */
+
 	public abstract void moveUp();
-	/**
-	 * move character one step down
-	 */
+	
 	public abstract  void moveDown();
-	/**
-	 * move character one step left
-	 */
+
 	public abstract  void moveLeft();
-	/**
-	 * move character one step Right
-	 */
+
 	public  abstract void moveRight();
-	/**
-	 * move character one step floor up
-	 */
+
 	public  abstract void movePageUp();
-	/**
-	 * move character one step floor down
-	 */
+
 	public  abstract void movePageDown();
-	/**
-	 * move character to start position of the maze
-	 */
+
 	public abstract void moveToStart();
+	
 	/**
 	 * move character to new position
 	 * @param p position to move to
