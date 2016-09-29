@@ -5,7 +5,9 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
 
@@ -68,18 +70,31 @@ public class GenerateMazeWindow extends BasicWindow {
 		btnGenerateMaze.addSelectionListener(new SelectionListener() {
 			
 			@Override
-			public void widgetSelected(SelectionEvent arg0) {				
-				name=txtName.getText();
-				floors=Integer.parseInt(txtFloors.getText());
-				rows = Integer.parseInt(txtRows.getText());
-				cols = Integer.parseInt(txtCols.getText());
-				//displayInfo("Info","maze name : " + name + "\nfloors: "+floors +"\nrows: " + rows + "\ncols: " + cols);
-				shell.dispose();
+			public void widgetSelected(SelectionEvent arg0) {
+				try{
+					name=txtName.getText();
+					floors=Integer.parseInt(txtFloors.getText());
+					rows = Integer.parseInt(txtRows.getText());
+					cols = Integer.parseInt(txtCols.getText());
+					//displayInfo("Info","maze name : " + name + "\nfloors: "+floors +"\nrows: " + rows + "\ncols: " + cols);
+					shell.dispose();
+				}
+				catch (Exception e) {
+					displayError("Error", "Please enter all parameters");
+				}
 			}
 			
 			@Override
 			public void widgetDefaultSelected(SelectionEvent arg0) {}
 		});	
+		
+		shell.addListener(SWT.Close, new Listener() {
+			@Override
+			public void handleEvent(Event arg0) {
+				setChanged();
+				notifyObservers("exit");
+			}
+        });
 	}
 
 	/**
