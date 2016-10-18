@@ -36,7 +36,7 @@ public class MyView extends CommonView {
 	
 	/**
 	 * print a message to the user
-	 * @param str
+	 * @param str -to print to the user
 	 */
 	@Override
 	public void printOutput(String str) {
@@ -45,7 +45,7 @@ public class MyView extends CommonView {
 
 	/**
 	 * notify to the client that the maze is ready
-	 * @param name
+	 * @param name -maze name
 	 */
 	@Override
 	public void notifyMazeIsReady(String name) {
@@ -54,7 +54,7 @@ public class MyView extends CommonView {
 
 	/**
 	 * Prints the maze
-	 * @param maze 
+	 * @param maze -the maze 
 	 */
 	@Override
 	public void displayMaze(Maze3d maze) {
@@ -80,8 +80,8 @@ public class MyView extends CommonView {
 
 	/**
 	 * Updates the Observable
-	 * @param o
-	 * @param arg 
+	 * @param o -Observable
+	 * @param arg - the commands with his arguments
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
@@ -110,7 +110,7 @@ public class MyView extends CommonView {
 	
 	/**
 	 * display the solution to the user
-	 * @param solution
+	 * @param solution- the solution of the maze
 	 */
 	@Override
 	public void displaySolution(Solution<Position> solution) {
@@ -120,7 +120,7 @@ public class MyView extends CommonView {
 	
 	/**
 	 * display Cross Section
-	 * @param maze2d 
+	 * @param maze2d -the maze in 2d
 	 */
 	@Override
 	public void displayCrossSection(int[][] maze2d){

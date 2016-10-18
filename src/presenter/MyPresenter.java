@@ -21,8 +21,8 @@ public class MyPresenter extends CommonPresenter {
 
 	/**
 	 * update gets the input from the user and start the command
-	 * @param o 
-	 * @param arg
+	 * @param o -Observable
+	 * @param arg- the command and his argument
 	 */
 	@Override
 	public void update(Observable o, Object arg) {

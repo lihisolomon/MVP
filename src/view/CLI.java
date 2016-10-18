@@ -17,8 +17,8 @@ public class CLI extends Observable {
 	/**
 	 * CTOR.
 	 *
-	 * @param in
-	 * @param out
+	 * @param in -BufferedReader
+	 * @param out -PrintWriter
 	 */
 	public CLI(BufferedReader in, PrintWriter out) {
 		this.in = in;

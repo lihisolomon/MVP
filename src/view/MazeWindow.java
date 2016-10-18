@@ -126,7 +126,7 @@ public class MazeWindow extends BasicWindow{
     
     /**
      * Generate key listener
-     * @param listener
+     * @param listener-a listener
      */
     public void generateKeyListener(KeyAdapter listener)
     {
@@ -135,7 +135,7 @@ public class MazeWindow extends BasicWindow{
     
     /**
      * generateMazeSelectionListener- listener to generate maze
-     * @param listener 
+     * @param listener -a listener
      */
     public void generateMazeSelectionListener(SelectionListener listener){
     	generateMazeButton.addSelectionListener(listener);
@@ -145,7 +145,7 @@ public class MazeWindow extends BasicWindow{
 	
     /**
      * solutionSelectionListener- listener for solving the maze
-     * @param listener
+     * @param listener-a listener
      */
 	public void solutionSelectionListener(SelectionListener listener){
 		solutionButton.addSelectionListener(listener);
@@ -153,7 +153,7 @@ public class MazeWindow extends BasicWindow{
 	
 	/**
 	 * hintSelectionListener- listener for get hint
-	 * @param listener
+	 * @param listener-a listener
 	 */
 	public void hintSelectionListener(SelectionListener listener){
 		hintButton.addSelectionListener(listener);
@@ -161,7 +161,7 @@ public class MazeWindow extends BasicWindow{
 	
 	/**
 	 * resetSelectionListener- listener for reset the game
-	 * @param listener 
+	 * @param listener -a listener
 	 */
 	public void resetSelectionListener(SelectionListener listener){
 		resetButton.addSelectionListener(listener);
@@ -169,7 +169,7 @@ public class MazeWindow extends BasicWindow{
 	
 	/**
 	 * loadMazeSelectionListener- listener for load a maze
-	 * @param listener 
+	 * @param listener -a listener
 	 */
 	public void loadMazeSelectionListener(SelectionListener listener){
 		loadMazeMenuItem.addSelectionListener(listener);
@@ -177,7 +177,7 @@ public class MazeWindow extends BasicWindow{
 	
 	/**
 	 * saveMazeSelectionListener- listener to save the maze
-	 * @param listener 
+	 * @param listener -a listener
 	 */
 	public void saveMazeSelectionListener(SelectionListener listener){
 		saveMazeMenuItem.addSelectionListener(listener);
@@ -185,7 +185,7 @@ public class MazeWindow extends BasicWindow{
 	
 	/**
 	 * editPropertiesSelectionListener- listener for the edit properties
-	 * @param listener 
+	 * @param listener -a listener
 	 */
 	public void editPropertiesSelectionListener(SelectionListener listener){
 		editPropertiesMenuItem.addSelectionListener(listener);
@@ -193,7 +193,7 @@ public class MazeWindow extends BasicWindow{
 
 	/**
 	 * importPropertiesSelectionListener- listener for the import the properties
-	 * @param listener 
+	 * @param listener -a listener
 	 */
 	public void importPropertiesSelectionListener(SelectionListener listener){
 		importPropertiesMenuItem.addSelectionListener(listener);
@@ -201,7 +201,7 @@ public class MazeWindow extends BasicWindow{
 	
 	/**
 	 * exportPropertiesSelectionListener- listener for the export the properties
-	 * @param listener 
+	 * @param listener -a listener
 	 */
 	public void exportPropertiesSelectionListener(SelectionListener listener){
 		exportPropertiesMenuItem.addSelectionListener(listener);
@@ -209,7 +209,7 @@ public class MazeWindow extends BasicWindow{
 	
 	/**
 	 * exportPropertiesSelectionListener- listener for the export the properties
-	 * @param listener 
+	 * @param listener -a listener
 	 */
 	public void aboutSelectionListener(SelectionListener listener){
 		aboutMenuItem.addSelectionListener(listener);
@@ -217,7 +217,7 @@ public class MazeWindow extends BasicWindow{
 	
 	/**
 	 * Zoom in out screen
-	 * @param listener 
+	 * @param listener -a listener
 	 */
 	public void zoomInOutScreen(MouseWheelListener listener){
 		shell.addMouseWheelListener(listener);
@@ -225,7 +225,7 @@ public class MazeWindow extends BasicWindow{
 	
 	/**
 	 * Finish game
-	 * @param listener
+	 * @param listener-a listener
 	 */
 	public void finishGame(SelectionListener listener) {
 		Boolean response=displayQuesion("Finish", "Do you want to start a new game?");
@@ -237,7 +237,7 @@ public class MazeWindow extends BasicWindow{
 	
 	/**
 	 * exitSelectionListener- listener to exit
-	 * @param listener 
+	 * @param listener -a listener
 	 */
 	public void exitSelectionListener(SelectionListener listener){
 		exitMenuItem.addSelectionListener(listener);

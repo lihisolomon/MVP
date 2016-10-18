@@ -21,8 +21,8 @@ public class EditPropertiesWindow extends BasicWindow {
 	
 	/**
 	 * Instantiates a new edits the properties window
-	 * @param width
-	 * @param height
+	 * @param width of the window
+	 * @param height of the window
 	 */
 	public EditPropertiesWindow(int width, int height) {
 		super(width, height);

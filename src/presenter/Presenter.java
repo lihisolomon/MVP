@@ -8,9 +8,9 @@ import java.util.Observable;
 public interface Presenter  {
 	
 	/**
-	 * Update
-	 * @param o 
-	 * @param arg
+	 * Update the presenter
+	 * @param o - Observable
+	 * @param arg-the command and his argument
 	 */
 	public void update(Observable o, Object arg);
 }

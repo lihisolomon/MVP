@@ -53,10 +53,10 @@ public class MyModel extends CommonModel {
 	
 	/**
 	 * generate the maze
-	 * @param name 
-	 * @param floors 
-	 * @param rows 
-	 * @param cols
+	 * @param name -maze name
+	 * @param floors -number of floors
+	 * @param rows -number of rows
+	 * @param cols -number of columns
 	 */
 	@Override
 	public void generateMaze(String name,int floors, int rows, int cols) {
@@ -113,7 +113,7 @@ public class MyModel extends CommonModel {
 
 	/**
 	 * getter of maze
-	 * @param name
+	 * @param name- maze name
 	 * @return the maze
 	 */
 	@Override
@@ -123,7 +123,7 @@ public class MyModel extends CommonModel {
 
 	/**
 	 * return the list of the files
-	 * @param path
+	 * @param path -from where get the list of files
 	 * @return the file[]
 	 */
 	@Override
@@ -148,8 +148,8 @@ public class MyModel extends CommonModel {
 	
 	/**
 	 * save the maze into a file
-	 * @param mazeName 
-	 * @param fileName
+	 * @param mazeName -maze name
+	 * @param fileName -the file name to save the maze
 	 */
 	@Override
 	public void saveMaze(String mazeName,String fileName) {
@@ -190,8 +190,8 @@ public class MyModel extends CommonModel {
 	
 	/**
 	 * load the maze from a file
-	 * @param mazeName 
-	 * @param fileName
+	 * @param mazeName - maze name
+	 * @param fileName- the file name to load the maze
 	 */
 	@Override
 	public void loadMaze(String mazeName,String fileName) {
@@ -246,8 +246,8 @@ public class MyModel extends CommonModel {
 	
 	/**
 	 * solve the maze
-	 * @param mazeName
-	 * @param alg
+	 * @param mazeName- maze name
+	 * @param alg -the algorithm
 	 */
 	@SuppressWarnings("rawtypes")
 	@Override
@@ -327,7 +327,7 @@ public class MyModel extends CommonModel {
 	
 	/**
 	 * get the solution of the maze
-	 * @param mazeName 
+	 * @param mazeName -the maze name
 	 * @return the solution
 	 */
 	public Solution<Position> getSolution(String mazeName){
@@ -359,9 +359,9 @@ public class MyModel extends CommonModel {
 	/**
 	 * get Cross Section
 	 * axle index of the maze 
-	 * @param axis
-	 * @param floors
-	 * @param mazeName
+	 * @param axis- the axis
+	 * @param floors-the floor
+	 * @param mazeName -maze name
 	 * @return the cross section
 	 */
 	public int[][] getCrossSection(String axis,Integer floors,String mazeName){
@@ -452,7 +452,7 @@ public class MyModel extends CommonModel {
 	
 	/**
 	 * Load the xml file
-	 * @param fileName
+	 * @param fileName -the file name to load the properties
 	 */
 	@Override
 	public void loadProperties(String fileName)
@@ -480,7 +480,7 @@ public class MyModel extends CommonModel {
 	
 	/**
 	 * Save properties to xml
-	 * @param folderName 
+	 * @param folderName -the folder name to save the properties
 	 */
 	@Override
 	public void saveProperties(String folderName)
@@ -509,10 +509,10 @@ public class MyModel extends CommonModel {
 	
 	 /**
  	 * edit properties
- 	 * @param generateMaze 
- 	 * @param solutionAlg 
- 	 * @param numThreads 
- 	 * @param viewStyle
+ 	 * @param generateMaze - how to generate the maze
+ 	 * @param solutionAlg -how to solve the maze
+ 	 * @param numThreads -number of threds
+ 	 * @param viewStyle -the view style of the gui
  	 */
 	public void editProperties(String generateMaze, String solutionAlg, Integer numThreads, String viewStyle){
 		if (generateMaze!=null && solutionAlg!=null && numThreads!=null && viewStyle!=null )

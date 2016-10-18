@@ -16,8 +16,8 @@ public class CommandsManager {
 		
 	/**
 	 * CTOR
-	 * @param model 
-	 * @param view 
+	 * @param model-the model 
+	 * @param view - the view
 	 */
 	public CommandsManager(Model model, View view) {
 		this.model = model;

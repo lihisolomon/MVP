@@ -31,8 +31,8 @@ public class Maze2dDisplay extends MazeDisplay{
 	
 	/**
 	 * Instantiates a new 2dmaze display
-	 * @param parent
-	 * @param style
+	 * @param parent -Composite
+	 * @param style of the display
 	 */
 	public Maze2dDisplay(Composite parent, int style) {
 		super(parent,style);
@@ -86,7 +86,7 @@ public class Maze2dDisplay extends MazeDisplay{
 
 	/**
 	 * set character position
-	 * @param position 
+	 * @param position- character position 
 	 */
 	public void setCharacterPosition(Position position) {
 		characterPosition = position;
@@ -249,7 +249,7 @@ public class Maze2dDisplay extends MazeDisplay{
 	
 	/**
 	 * print the character in the displayer
-	 * @param e 
+	 * @param e -PaintEvent
 	 * @param characterP the character Position
 	 */
 	public void printCharacter(PaintEvent e,Position characterP)
@@ -264,7 +264,7 @@ public class Maze2dDisplay extends MazeDisplay{
 	
 	/**
 	 * Solve the maze 
-	 * @param solution
+	 * @param solution- the solution of the maze
 	 */
 	public void solveMaze(Solution<Position> solution) {
 		ArrayList<Position> s=solution.stackToArrayList();

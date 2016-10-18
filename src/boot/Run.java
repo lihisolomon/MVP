@@ -16,7 +16,7 @@ public class Run {
 
 	/**
 	 * The main method
-	 * @param args
+	 * @param args -args from the user
 	 */
 	public static void main(String[] args) {
 		

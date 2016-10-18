@@ -14,19 +14,19 @@ public interface View {
 	
 	/**
 	 * Prints the output
-	 * @param str
+	 * @param str - to print to the user
 	 */
 	public void printOutput(String str);
 	
 	/**
 	 * Notify maze is ready
-	 * @param name
+	 * @param name -maze name
 	 */
 	void notifyMazeIsReady(String name);
 	
 	/**
 	 * Display maze
-	 * @param maze
+	 * @param maze - maze name
 	 */
 	void displayMaze(Maze3d maze);
 	
@@ -43,13 +43,13 @@ public interface View {
 	
 	/**
 	 * Display solution
-	 * @param solution
+	 * @param solution -the solution of the maze
 	 */
 	public void displaySolution(Solution<Position> solution);
 	
 	/**
 	 * Display cross section
-	 * @param maze2d 
+	 * @param maze2d -the maze in 2d
 	 */
 	public void displayCrossSection(int[][] maze2d);
 	

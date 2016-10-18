@@ -22,8 +22,8 @@ public abstract class CommonPresenter implements Presenter,Observer {
 	
 	/**
 	 * Instantiates a new common presenter.
-	 * @param model 
-	 * @param view
+	 * @param model -the model
+	 * @param view-the view
 	 */
 	public CommonPresenter(Model model, View view) {
 		this.model = model;

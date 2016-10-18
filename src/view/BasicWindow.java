@@ -22,8 +22,8 @@ public abstract class BasicWindow extends Observable implements Runnable {
 	/**
 	 * CTOR.
 	 *
-	 * @param width
-	 * @param height
+	 * @param width of the window
+	 * @param height of the window
 	 */
 	public BasicWindow(int width, int height) {
 
@@ -61,9 +61,9 @@ public abstract class BasicWindow extends Observable implements Runnable {
 	
 	/**
 	 * Display a message box to the user 
-	 * @param iconNum 
-	 * @param title 
-	 * @param message 
+	 * @param iconNum - icon numbers
+	 * @param title -the title of the message
+	 * @param message -the message
 	 */
 	public void displayMessage(int iconNum,String title,String message)
 	{
@@ -82,8 +82,8 @@ public abstract class BasicWindow extends Observable implements Runnable {
 	
 	/**
 	 * Display info messages
-	 * @param title
-	 * @param message 
+	 * @param title- the title of the message
+	 * @param message -the message
 	 */
 	public void displayInfo(String title,String message)
 	{
@@ -92,8 +92,8 @@ public abstract class BasicWindow extends Observable implements Runnable {
 	
 	/**
 	 * Displays error messages
-	 * @param title 
-	 * @param message 
+	 * @param title - the title of the message
+	 * @param message -the message
 	 */
 	public void displayError(String title,String message)
 	{
@@ -101,9 +101,9 @@ public abstract class BasicWindow extends Observable implements Runnable {
 	}
 	
 	/**
-	 * Display a Yes & no Question
-	 * @param title 
-	 * @param message 
+	 * Display a Yes OR no Question
+	 * @param title - the title of the message 
+	 * @param message -the message
 	 * @return true, if successful
 	 */
 	public boolean displayQuesion(String title,String message)
@@ -120,11 +120,11 @@ public abstract class BasicWindow extends Observable implements Runnable {
 	
 	/**
 	 * Open a file dialog with user input styles and extentions
-	 * @param style
-	 * @param title
-	 * @param filterExtention
-	 * @param Path
-	 * @return filename
+	 * @param style of the dialog
+	 * @param title of the dialog
+	 * @param filterExtention of the dialog
+	 * @param Path -default path to show
+	 * @return filename that choosen
 	 */
 	public String displayFileDialog(int style,String title,String [] filterExtention,String Path)
 	{
@@ -137,9 +137,9 @@ public abstract class BasicWindow extends Observable implements Runnable {
 	
 	/**
 	 * Display directory dialog
-	 * @param style
-	 * @param title
-	 * @param Path
+	 * @param style of the dialog
+	 * @param title of the dialog
+	 * @param Path -default path to show
 	 * @return the string
 	 */
 	public String displayDirectoryDialog(int style,String title,String Path){

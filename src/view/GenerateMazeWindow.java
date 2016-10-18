@@ -24,8 +24,8 @@ public class GenerateMazeWindow extends BasicWindow {
 	/**
 	 * Instantiates a new generate maze window.
 	 *
-	 * @param width 
-	 * @param height
+	 * @param width of the window 
+	 * @param height of the window
 	 */
 	public GenerateMazeWindow(int width, int height) {
 		super(width, height);

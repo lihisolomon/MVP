@@ -17,8 +17,8 @@ public abstract class MazeDisplay extends Canvas{
 	
 	/**
 	 * Instantiates a new maze display
-	 * @param parent
-	 * @param style
+	 * @param parent- Composite
+	 * @param style of the display
 	 */
 	public MazeDisplay(Composite parent, int style) {
 		super(parent, style);
