@@ -515,25 +515,20 @@ public class MyModel extends CommonModel {
  	 * @param viewStyle -the view style of the gui
  	 */
 	public void editProperties(String generateMaze, String solutionAlg, Integer numThreads, String viewStyle){
-		if (generateMaze!=null && solutionAlg!=null && numThreads!=null && viewStyle!=null )
-		{
-			if (generateMaze!=null)
-				this.generateType=generateMaze;
-			if (solutionAlg!=null)
-				this.solveAlg=solutionAlg;
-			if (numThreads!=null){
-				this.executor = Executors.newFixedThreadPool(numThreads);
-				this.threadNum=numThreads;
-			}
-			if(viewStyle!=null)
-				this.viewStyle=viewStyle;
-				
-			saveProperties("./resources/");
+
+		if (generateMaze!=null)
+			this.generateType=generateMaze;
+		if (solutionAlg!=null)
+			this.solveAlg=solutionAlg;
+		if (numThreads!=null){
+			this.executor = Executors.newFixedThreadPool(numThreads);
+			this.threadNum=numThreads;
 		}
-		else{
-			setChanged();
-			notifyObservers("Error: the maze name or file name is empty");
-		}
+		if(viewStyle!=null)
+			this.viewStyle=viewStyle;
+			
+		saveProperties("./resources/");
+	
 	}
 	
 	/**

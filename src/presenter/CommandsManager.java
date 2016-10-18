@@ -190,7 +190,10 @@ public class editPropertiesCommand implements Command{
 		public void doCommand(String[] args) {
 			String generateMaze=args[0];
 			String solutionAlg=args[1];
-			Integer numThreads=Integer.parseInt(args[2]);
+			Integer numThreads;
+			try { numThreads=Integer.parseInt(args[2]); }
+			catch (Exception e) { numThreads=null; }
+			
 			String viewStyle=args[3];
 			model.editProperties(generateMaze, solutionAlg, numThreads, viewStyle);
 		}

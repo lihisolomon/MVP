@@ -75,12 +75,20 @@ public class EditPropertiesWindow extends BasicWindow {
 		btnGenerateMaze.addSelectionListener(new SelectionListener() {
 			
 			@Override
-			public void widgetSelected(SelectionEvent arg0) {				
-				generateMaze=gCombo.getText();
-				solutionAlg=sCombo.getText();
-				numThreads = Integer.parseInt(txtNumThreads.getText());
-				viewStyle=vCombo.getText();
-				shell.dispose();
+			public void widgetSelected(SelectionEvent arg0) {	
+				try { generateMaze=gCombo.getText(); }
+				catch (Exception e) {generateMaze=null;}
+				
+				try { solutionAlg=sCombo.getText(); }
+				catch (Exception e) {solutionAlg=null;}
+				
+				try { numThreads = Integer.parseInt(txtNumThreads.getText()); }
+				catch (Exception e) {numThreads=null;}
+				
+				try {viewStyle=vCombo.getText(); }
+				catch (Exception e) {viewStyle=null;}
+				
+				 shell.dispose();
 			}
 			
 			@Override

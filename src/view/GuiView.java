@@ -1,6 +1,7 @@
 package view;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.Observable;
 
 import org.eclipse.swt.SWT;
@@ -134,11 +135,12 @@ public class GuiView extends CommonView{
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				if(mazeWindow.getMaze() != null) {
+				if(mazeName != null) {
 					String fileName = mazeWindow.displayFileDialog(SWT.SAVE, "Save maze", new String[] { "*.maz" }, "C:\\");
 					if(fileName != null) {
 						setChanged();
 						notifyObservers("save_maze "+mazeName+" "+fileName);
+						mazeWindow.displayInfo("Save Maze", "The maze was saved succesfully");
 					}
 				}
 				else
@@ -153,12 +155,12 @@ public class GuiView extends CommonView{
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				EditPropertiesWindow win = new EditPropertiesWindow(300,210);			
+				EditPropertiesWindow win = new EditPropertiesWindow(300,210);
 				win.run();
 				setChanged();
 				notifyObservers("edit_properties " +win.getGenerateMaze()+ " "+win.getSolutionAlg()+ " " +
 						win.getNumThreads()+" "+win.getViewStyle());
-				mazeWindow.displayInfo("Edit Properties", "the Properties was edited succesfully\nPlease restart the program");			
+				mazeWindow.displayInfo("Edit Properties", "the Properties was edited succesfully\nPlease restart the program");
 			}
 			
 			@Override
@@ -171,9 +173,15 @@ public class GuiView extends CommonView{
 			public void widgetSelected(SelectionEvent arg0) {
 				String fileName = mazeWindow.displayFileDialog(SWT.SAVE, "Save properties", new String[] { "*.xml" }, "C:\\");
 				if(fileName != null) {
-					setChanged();
-					notifyObservers("load_properties "+fileName);
-					mazeWindow.displayInfo("Load Properties", "The properties was loaded succesfully");
+					try {
+						FileInputStream fileInput = new FileInputStream(new File(fileName));
+						setChanged();
+						notifyObservers("load_properties "+fileName);
+						mazeWindow.displayInfo("Load Properties", "The properties was loaded succesfully");
+					}
+					catch (Exception e) {
+						mazeWindow.displayError("Error Load Properties", "Please select an existing file");
+					}
 				}
 			}
 			
