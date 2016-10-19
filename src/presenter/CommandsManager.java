@@ -1,5 +1,6 @@
 package presenter;
 
+import java.io.File;
 import java.util.HashMap;
 
 import algorithms.mazeGenerators.Maze3d;
@@ -98,7 +99,11 @@ public class CommandsManager {
 		@Override
 		public void doCommand(String[] args) {
 			String mazeName=args[0];
-			String fileName=args[1];
+			String fileName;
+			if (!args[1].contains(".maz"))
+				fileName=args[1]+".maz";
+			else 
+				 fileName=args[1];
 			model.saveMaze(mazeName,fileName);
 		}
 	}
@@ -110,9 +115,18 @@ public class CommandsManager {
 
 		@Override
 		public void doCommand(String[] args) {
-			String mazeName=args[0];
+			String mazeName;
+			if (args[0].contains("\\")){
+				File f=new File(args[0]);
+				mazeName=(f.getName());
+				mazeName=mazeName.split("\\.")[0];
+			}
+			else 
+				mazeName=args[0];
 			String fileName=args[1];
 			model.loadMaze(mazeName, fileName);
+			Maze3d maze = model.getMaze(mazeName);
+			view.displayMaze(maze);
 		}
 	}
 	

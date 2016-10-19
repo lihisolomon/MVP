@@ -18,12 +18,10 @@ import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 
-
 /**
  * GuiView class extends CommonView.
  */
 public class GuiView extends CommonView{
-
 
 	protected String mazeName;
 	protected MazeWindow mazeWindow;
@@ -119,11 +117,15 @@ public class GuiView extends CommonView{
 			public void widgetSelected(SelectionEvent arg0) {
 				String fileName = mazeWindow.displayFileDialog(SWT.OPEN, "Load Maze", new String[] { "*.maz" },"C:\\");
 				if(fileName != null) {
-					mazeName=fileName;
+					if (fileName.contains("\\")){
+						File f=new File(fileName);
+						mazeName=(f.getName());
+						mazeName=mazeName.split("\\.")[0];
+					}
+					else 
+						mazeName=fileName;
 					setChanged();
 					notifyObservers("load_maze "+mazeName+ " "+fileName);
-					setChanged();
-					notifyObservers("display "+mazeName);
 				}
 			}
 			

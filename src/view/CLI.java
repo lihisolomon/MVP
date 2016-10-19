@@ -71,7 +71,7 @@ public class CLI extends Observable {
     	printOutput("		display <name>");
     	printOutput("		display_cross_section <axle> <index> <mazeName>");
     	printOutput("		save_maze <mazeName> <fileName>");
-    	printOutput("		load_maze <mazeName> <fileName>");
+    	printOutput("		load_maze <mazeName> <path>");
     	printOutput("		solve <mazeName> <algorithm>");
     	printOutput("		display_solution <mazeName>");
     	printOutput("		load_properties <path>");
