@@ -474,6 +474,7 @@ public class MyModel extends CommonModel {
 			this.solveAlg = "BFS";
 			this.viewStyle="GUI";
 		}
+		saveProperties("./resources/");
 		setChanged();
 		notifyObservers("the properties was loaded succesfully");
 	}
