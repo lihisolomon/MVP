@@ -115,14 +115,7 @@ public class CommandsManager {
 
 		@Override
 		public void doCommand(String[] args) {
-			String mazeName;
-			if (args[0].contains("\\")){
-				File f=new File(args[0]);
-				mazeName=(f.getName());
-				mazeName=mazeName.split("\\.")[0];
-			}
-			else 
-				mazeName=args[0];
+			String mazeName=args[0];
 			String fileName=args[1];
 			model.loadMaze(mazeName, fileName);
 			Maze3d maze = model.getMaze(mazeName);
